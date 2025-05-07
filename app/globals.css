@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --primary: #0ea5e9;
+  --secondary: #442463;
+  --tertiary: #ec4899;
+}
+
 @layer base {
   body {
     @apply bg-gray-900 text-gray-100
