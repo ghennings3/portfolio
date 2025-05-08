@@ -1,0 +1,20 @@
+import { HiArrowNarrowLeft } from "react-icons/hi"
+import { Link } from "./Link"
+import { SectionTitle } from "./SectionTitle"
+
+export const PageIntroduction = () => {
+    return(
+        <section className="flex w-full h-[450px] lg:h-[630px] flex-col items-center justify-center px-2">
+            <SectionTitle className="text-center items-center [&>h3]:text-4xl" subtitle="projetos" title="Meus Projetos" />
+            <div className="flex flex-col items-center">
+                <p className="text-gray-400 text-center max-w-[640px] my-6 text-sm sm:text-base">
+                    Nesta seção, você encontra alguns dos projetos que desenvolvi com dedicação e criatividade. Cada um deles representa um aprendizado, um desafio superado e um passo na minha jornada como desenvolvedor. Explore à vontade!
+                </p>
+                <Link href='/'>
+                    <HiArrowNarrowLeft size={20} />
+                    Voltar para Home
+                </Link>
+            </div>
+        </section>
+    )
+}
