@@ -5,6 +5,19 @@ import { Header } from '@/components/header/Header'
 import { ContactForm } from '@/components/contact-form/ContactForm'
 import { Footer } from '@/components/footer/Footer'
 import { BackToTop } from '@/components/BackToTop'
+import { icons } from 'react-icons'
+
+export const metadata = {
+  title: {
+    default: 'Home',
+    template: '%s | G.H Dev'
+  },
+  icons: [
+    {
+      url: '/favicon-16x16.png'
+    }
+  ]
+}
 
 const inter = Inter({
   variable: '--font-inter',
