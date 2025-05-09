@@ -3,28 +3,26 @@
 import Image from "next/image"
 import { TechBadge } from "../tech-badge/TechBadge"
 import { Button } from "../button/Button"
-import {HiArrowNarrowRight} from 'react-icons/hi'
-import {TbBrandGithub, TbBrandLinkedin} from 'react-icons/tb'
+import { HiArrowNarrowRight } from 'react-icons/hi'
+import { TbBrandGithub, TbBrandLinkedin } from 'react-icons/tb'
+import { HomePageInfo } from "@/app/types/pageInfo"
+import { RichText } from "@graphcms/rich-text-react-renderer"
+import { CmsIcon } from "../CmsIcon"
 
-const MOCK_CONTACTS = [
-    {
-        href: 'https://github.com/ghennings3',
-        icon: <TbBrandGithub />
-    },
-    {
-        href: 'https://www.linkedin.com/in/gustavohennings/',
-        icon: <TbBrandLinkedin />
-    }
-]
+type HomeSectionProps = {
+    homeInfo: HomePageInfo
+}
 
-export const HeroSection = () => {
-    const handleContact = () =>{
+export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
+
+    console.log(homeInfo.introduction.raw)
+    const handleContact = () => {
         const contactSection = document.querySelector('#contact');
-        if(contactSection){
-            contactSection.scrollIntoView({behavior: 'smooth'});
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
-    return(
+    return (
         <section className="w-full bg-gray-950/50 lg:h-[755px] flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[100px]">
             <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
                 <div className="w-full lg:max-w-[530px]">
@@ -35,10 +33,10 @@ export const HeroSection = () => {
                             Developer
                         </span>
                     </h1>
-                    <p className="text-gray-400 my-6 text-sm sm:text-base">E aí! Sou o Gustavo Hennings — apaixonado por tecnologia e sempre fuçando novas ideias. Comecei minha jornada no front-end, mas minha meta é crescer cada vez mais e me tornar um dev full stack completo.</p>
+                    <div className="text-gray-400 rich-text my-6 text-sm sm:text-base"><RichText content={homeInfo.introduction.raw} /></div>
                     <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-                        {Array.from({length: 7}).map((_, index) => (
-                            <TechBadge name="next.js" key={index} />
+                        {homeInfo.technologies.map((tech) => (
+                            <TechBadge key={tech.name} name={tech.name} />
                         ))}
                     </div>
                     <div className="mt-6 lg:mt-10 flex sm:items-center sm:gap-5 flex-col sm:flex-row">
@@ -47,9 +45,15 @@ export const HeroSection = () => {
                             <HiArrowNarrowRight size={18} />
                         </Button>
                         <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-                            {MOCK_CONTACTS.map((contact, index) => (
-                                <a href={contact.href} key={`contact-${index}`} target="_blank" className="hover:text-gray-100 transition-colors">
-                                    {contact.icon}
+                            {homeInfo.socials.map((contact, i) => (
+                                <a
+                                    href={contact.url}
+                                    key={`contact-${i}`}
+                                    target="_blank"
+                                    className="hover:text-gray-100 transition-colors"
+                                    rel="noreferrer"
+                                >
+                                    <CmsIcon icon={contact.iconSvg} />
                                 </a>
                             ))}
                         </div>

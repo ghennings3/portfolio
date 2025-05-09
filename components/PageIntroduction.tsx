@@ -4,7 +4,7 @@ import { SectionTitle } from "./SectionTitle"
 
 export const PageIntroduction = () => {
     return(
-        <section className="flex w-full h-[450px] lg:h-[630px] flex-col items-center justify-center px-2">
+        <section className="bg-gray-950/50 flex w-full h-[450px] lg:h-[630px] flex-col items-center justify-center px-2">
             <SectionTitle className="text-center items-center [&>h3]:text-4xl" subtitle="projetos" title="Meus Projetos" />
             <div className="flex flex-col items-center">
                 <p className="text-gray-400 text-center max-w-[640px] my-6 text-sm sm:text-base">
