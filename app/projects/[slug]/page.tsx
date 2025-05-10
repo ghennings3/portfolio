@@ -31,6 +31,7 @@ export async function generateStaticParams(): Promise<
 }
 
 
+
 const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
   const query = `
   query ProjectQuery {
