@@ -24,12 +24,12 @@ export async function generateStaticParams() {
   const { projects } = await fetchHygraphQuery<ProjectsPageStaticData>(query, 0);
 
   return projects.map((project: { slug: string }) => ({
-    slug: project.slug,
+    params: { slug: project.slug },
   }));
 }
 
 const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
-    const query = `
+  const query = `
   query ProjectQuery {
     project(where: { slug: "${slug}" }) {
       pageThumbnail {
@@ -58,37 +58,36 @@ const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
     }
   }
 `
-  
-    return fetchHygraphQuery(query, 0)
-  }
-  export default async function Project({ params: { slug } }: ProjectProps) {
-    const { project } = await getProjectDetails(slug)
-  
-    return (
-      <>
-        <ProjectDetails project={project} />
-        <ProjectSections sections={project.sections} />
-      </>
-    )
-  }
 
-  export async function generateMetadata({
-    params: {slug}
-  }: ProjectProps): Promise<Metadata>{
-    const data = await getProjectDetails(slug)
-    const project = data.project
-    return{
-      title: project.title,
-      description: project.description.text,
-      openGraph: {
-        images: [
-          {
-            url: project.thumbnail.url,
-            width: 1200,
-            height: 630,
-          }
-        ]
-      }
+  return fetchHygraphQuery(query, 0)
+}
+export default async function Project({ params: { slug } }: ProjectProps) {
+  const { project } = await getProjectDetails(slug)
+
+  return (
+    <>
+      <ProjectDetails project={project} />
+      <ProjectSections sections={project.sections} />
+    </>
+  )
+}
+
+export async function generateMetadata({
+  params: { slug }
+}: ProjectProps): Promise<Metadata> {
+  const data = await getProjectDetails(slug)
+  const project = data.project
+  return {
+    title: project.title,
+    description: project.description.text,
+    openGraph: {
+      images: [
+        {
+          url: project.thumbnail.url,
+          width: 1200,
+          height: 630,
+        }
+      ]
     }
   }
-  
+}
