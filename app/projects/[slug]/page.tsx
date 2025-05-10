@@ -12,7 +12,9 @@ type ProjectProps = {
 
 
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<
+  { params: { slug: string } }[]
+> {
   const query = `
     query {
       projects {
@@ -27,6 +29,7 @@ export async function generateStaticParams() {
     params: { slug: project.slug },
   }));
 }
+
 
 const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
   const query = `
